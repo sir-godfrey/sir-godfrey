@@ -1,0 +1,57 @@
+# this program encrypts or decrypts a #given message
+user_name = input('Please enter your user name: ') #asking for the username of the inorder to personalize the output.
+
+selection = " " # initializing the selection to an empty string
+while selection: #initializing the while to loop to ensure the program runs continously based on the choice of the user
+	
+	def encrypter(message, cypher_key = 0): #creating a function called encrypter 
+		alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'] 
+		encoded_message = ""
+		if cypher_key:
+			for character in message:
+				try:
+					j= alphabets.index(character) + int(cypher_key)
+				except:
+					coded_character = character
+				else:
+					coded_character= alphabets[j]
+				encoded_message += coded_character				
+		else:
+			encoded_message = message
+		return encoded_message
+
+	def decrypter(message, cypher_key = 0):
+		alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+		decoded_message = ""
+		if cypher_key:
+			for character in message:
+				try:
+					j = alphabets.index(character) - int(cypher_key)
+				except:
+					coded_character = character
+				else:
+					coded_character= alphabets[j]
+				decoded_message += coded_character
+		else:
+			decoded_message = message
+		return decoded_message
+
+	action = input('Do you want to encrypt a message or decrypt a cypher text? enter E to encrypt or D to decrypt: ')
+	if action.upper() == 'E':
+		plaintext = input('Enter the message you want to encrypt: ')
+		message = plaintext.lower()
+		cypher_key = input('Enter the encryption key; the encryption key should be between 1 and 26: ')
+		encoded_msg = encrypter(message, cypher_key)
+		print(encoded_msg)
+	elif action.upper() == 'D':
+		cypher_text= input('Enter the cypher text you want to decrypt: ')
+		message = cypher_text.lower()
+		cypher_key = input('Enter the decryption key; the decryption key should be between 1 and 26: ')
+		decoded_msg = decrypter(message, cypher_key)
+		print(decoded_msg)
+	
+	selection = input('Do you have more texts to encrypt or decrypt? Enter yes to go again or no to quit: ')
+	if selection.lower() == 'no':
+		selection = False
+		print('Thank you for using the crytography service ' + user_name.title() + "!")
+	
